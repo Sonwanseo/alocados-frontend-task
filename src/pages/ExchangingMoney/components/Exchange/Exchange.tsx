@@ -18,6 +18,15 @@ const TargetBox = styled(FlexBox)`
   justify-content: center;
 `;
 
+const TargetInput = styled.input`
+  font-weight: 600;
+  font-size: 18px;
+  color: ${SHADE['800']};
+  outline: none;
+  border: none;
+  background-color: ${SHADE['000']};
+`;
+
 const SwapIcon = styled.img`
   width: 40px;
   height: 40px;
@@ -50,16 +59,14 @@ export function Exchange() {
           <Text overline semibold color={SHADE['600']}>
             전환 수량
           </Text>
-          <Text body2 semibold color={SHADE['800']}>
-            1
-          </Text>
+          <TargetInput placeholder="1" />
         </TargetBox>
         <Select tokenType="Ethereum" />
       </BoxWrapper>
       <SwapIcon src={Swap} />
       <BoxWrapper>
         <ResultBox>
-          <Text body2 semibold color={SHADE['800']}>
+          <Text body2 semibold color={SHADE['700']}>
             100
           </Text>
         </ResultBox>
