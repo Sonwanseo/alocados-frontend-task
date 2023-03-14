@@ -20,6 +20,10 @@ const StyledButton = styled.button<StyledButtonProps>`
   border-radius: 12px;
 `;
 
+const StyledText = styled(Text)`
+  line-height: 36px;
+`;
+
 export default function (props: Props) {
   const { type = 'Default', children, ...rest } = props;
 
@@ -41,9 +45,9 @@ export default function (props: Props) {
 
   return (
     <StyledButton backgroundColor={backgroundColor} {...rest}>
-      <Text button semibold color={color}>
+      <StyledText button semibold color={color}>
         {children}
-      </Text>
+      </StyledText>
     </StyledButton>
   );
 }
