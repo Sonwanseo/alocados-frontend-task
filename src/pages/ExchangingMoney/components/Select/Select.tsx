@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { getTokenImageByType } from 'utils';
 import DownChevron from 'assets/svg/DownChevron.svg';
 import { TokenType } from 'types/Model';
+import React from 'react';
 
 const Container = styled(FlexBox)`
   box-sizing: border-box;
@@ -31,6 +32,15 @@ const DownChevronImage = styled.img`
   height: 24px;
 `;
 
+const DropDownWrapper = styled(FlexBox)`
+  position: relative;
+  width: 10px;
+  height: 10px;
+  top: 20px;
+  left: 20px;
+  gap: 4px;
+`;
+
 type Props = {
   tokenType: TokenType;
 };
@@ -38,17 +48,21 @@ type Props = {
 export function Select(props: Props) {
   const { tokenType } = props;
 
+  const [showDropDown, setShowDropDown] = React.useState(false);
+
   return (
     <Container>
-      <TokenWrapper
-        style={{
-          alignItems: 'center',
-        }}
-      >
+      <TokenWrapper>
         <TokenImage src={getTokenImageByType(tokenType)} />
         <Text caption>{tokenType}</Text>
       </TokenWrapper>
-      <DownChevronImage src={DownChevron} />
+      {showDropDown && (
+        <DropDownWrapper column>
+          <Text caption>Solana</Text>
+          <Text caption>BnB</Text>
+        </DropDownWrapper>
+      )}
+      <DownChevronImage src={DownChevron} onClick={() => setShowDropDown((prev) => !prev)} />
     </Container>
   );
 }
