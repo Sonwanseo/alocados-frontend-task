@@ -19,7 +19,7 @@ export function BasicLayout(props: Props) {
 
   return (
     <Container center>
-      <ContentWrapper>{children}</ContentWrapper>
+      <ContentWrapper center>{children}</ContentWrapper>
     </Container>
   );
 }
