@@ -1,5 +1,6 @@
 import { FlexBox, Text } from 'components/Common';
 import { SHADE } from 'constants/Theme';
+import { useTokenStore } from 'store';
 import styled from 'styled-components';
 import { getTokenImageByType } from 'utils';
 import { HoldingToken } from '../HoldingToken';
@@ -20,15 +21,17 @@ const Divider = styled(FlexBox)`
 `;
 
 export function Summary() {
+  const { solana, ethereum, BnB } = useTokenStore();
+
   return (
     <SummaryWrapper column>
       <Text semibold body color={SHADE['700']}>
         요약
       </Text>
       <Divider />
-      <HoldingToken icon={getTokenImageByType('Solana')} token="Solana" holding="1,211,023,512.34" />
-      <HoldingToken icon={getTokenImageByType('Ethereum')} token="Ethereum" holding="512.01" />
-      <HoldingToken icon={getTokenImageByType('BnB')} token="BnB" holding="0.35" />
+      <HoldingToken icon={getTokenImageByType('Solana')} token="Solana" holding={solana} />
+      <HoldingToken icon={getTokenImageByType('Ethereum')} token="Ethereum" holding={ethereum} />
+      <HoldingToken icon={getTokenImageByType('BnB')} token="BnB" holding={BnB} />
     </SummaryWrapper>
   );
 }
