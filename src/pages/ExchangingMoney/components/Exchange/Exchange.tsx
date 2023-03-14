@@ -21,6 +21,7 @@ const TargetBox = styled(FlexBox)`
 const SwapIcon = styled.img`
   width: 40px;
   height: 40px;
+  margin: 24px 0px;
 `;
 
 const ResultBox = styled(FlexBox)`
