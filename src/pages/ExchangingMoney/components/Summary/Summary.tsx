@@ -26,9 +26,9 @@ export function Summary() {
         요약
       </Text>
       <Divider />
-      <HoldingToken icon={getTokenImageByType('Solana')} token="Solana" holding="1,211,023,512.34 SOL" />
-      <HoldingToken icon={getTokenImageByType('Ethereum')} token="Ethereum" holding="512.01 ETH" />
-      <HoldingToken icon={getTokenImageByType('BnB')} token="BnB" holding="0.35 BNB" />
+      <HoldingToken icon={getTokenImageByType('Solana')} token="Solana" holding="1,211,023,512.34" />
+      <HoldingToken icon={getTokenImageByType('Ethereum')} token="Ethereum" holding="512.01" />
+      <HoldingToken icon={getTokenImageByType('BnB')} token="BnB" holding="0.35" />
     </SummaryWrapper>
   );
 }

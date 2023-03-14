@@ -1,6 +1,8 @@
 import { FlexBox, Text } from 'components/Common';
 import { SHADE } from 'constants/Theme';
 import styled from 'styled-components';
+import { TokenType } from 'types/Model';
+import { getTokenUnitByType } from 'utils';
 
 const Container = styled(FlexBox)`
   margin-bottom: 24px;
@@ -30,7 +32,7 @@ const HoldingText = styled(Text)`
 
 type Props = {
   icon: string;
-  token: string;
+  token: TokenType;
   holding: string;
 };
 
@@ -48,7 +50,7 @@ export function HoldingToken(props: Props) {
         </Text>
       </TopWrapper>
       <HoldingText body2 semibold>
-        {holding}
+        {`${holding} ${getTokenUnitByType(token)}`}
       </HoldingText>
     </Container>
   );

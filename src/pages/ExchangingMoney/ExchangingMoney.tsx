@@ -38,9 +38,9 @@ export function ExchangingMoney() {
               <ExchangingHistoryItem
                 date="2023-03-12, AM 10:50"
                 targetType="Ethereum"
-                targetAmount="1,302.44 ETH"
+                targetAmount="1,302.44"
                 resultType="Solana"
-                resultAmount="1,302.44 SOL"
+                resultAmount="1,302.44"
               />
             </HistoryItemWrapper>
           </ExchangeWrapper>
