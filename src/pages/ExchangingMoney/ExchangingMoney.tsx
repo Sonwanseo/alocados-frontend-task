@@ -27,7 +27,16 @@ const HistoryItemWrapper = styled(FlexBox)`
 `;
 
 export function ExchangingMoney() {
-  const { targetType, resultType, resultAmount, noneHoldingError, changeTargetType, changeTargetAmount, changeResultType } = useExchangingMoney();
+  const {
+    targetType,
+    resultType,
+    resultAmount,
+    noneHoldingError,
+    minimumAmountShortageError,
+    changeTargetType,
+    changeTargetAmount,
+    changeResultType,
+  } = useExchangingMoney();
 
   return (
     <BasicLayout>
@@ -41,6 +50,7 @@ export function ExchangingMoney() {
               resultType={resultType}
               resultAmount={resultAmount}
               noneHoldingError={noneHoldingError}
+              minimumAmountShortageError={minimumAmountShortageError}
               changeTargetType={changeTargetType}
               changeTargetAmount={changeTargetAmount}
               changeResultType={changeResultType}

@@ -53,13 +53,23 @@ type Props = {
   resultType: TokenType;
   resultAmount: number;
   noneHoldingError: boolean;
+  minimumAmountShortageError: boolean;
   changeTargetType: (token: TokenType) => void;
   changeTargetAmount: (amount: string) => void;
   changeResultType: (token: TokenType) => void;
 };
 
 export function Exchange(props: Props) {
-  const { targetType, resultType, resultAmount, noneHoldingError, changeTargetType, changeTargetAmount, changeResultType } = props;
+  const {
+    targetType,
+    resultType,
+    resultAmount,
+    noneHoldingError,
+    minimumAmountShortageError,
+    changeTargetType,
+    changeTargetAmount,
+    changeResultType,
+  } = props;
 
   return (
     <FlexBox
@@ -69,11 +79,11 @@ export function Exchange(props: Props) {
       }}
     >
       <BoxWrapper>
-        <TargetBox column disabled={noneHoldingError}>
+        <TargetBox column disabled={noneHoldingError || minimumAmountShortageError}>
           <Text overline semibold color={SHADE['600']}>
             전환 수량
           </Text>
-          <TargetInput placeholder="0" onChange={(e) => changeTargetAmount(e.target.value)} disabled={noneHoldingError} />
+          <TargetInput placeholder="1" onChange={(e) => changeTargetAmount(e.target.value)} disabled={noneHoldingError} />
         </TargetBox>
         <Select tokenType={targetType} changeToken={changeTargetType} />
       </BoxWrapper>
