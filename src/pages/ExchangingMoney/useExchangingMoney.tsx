@@ -2,6 +2,7 @@ import { TokenService } from 'services';
 import React from 'react';
 import { TokenType } from 'types/Model';
 import { useHistoryStore, useTokenStore } from 'store';
+import { checkIsNumber } from 'utils';
 
 export function useExchangingMoney() {
   const [targetType, setTargetType] = React.useState<TokenType | undefined>(undefined);
@@ -28,6 +29,7 @@ export function useExchangingMoney() {
 
     setError(TokenService.checkOverExchangeError(targetAmount, tokens[targetType]));
     setError(TokenService.checkMinimumAmountSortageError(targetAmount));
+    setError(!checkIsNumber(targetAmount));
   }, [targetAmount]);
 
   React.useEffect(() => {
