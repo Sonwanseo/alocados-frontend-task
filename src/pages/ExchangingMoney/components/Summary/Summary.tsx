@@ -5,9 +5,9 @@ import styled from 'styled-components';
 import { getTokenImageByType } from 'utils';
 import { HoldingToken } from '../HoldingToken';
 
-const SummaryWrapper = styled(FlexBox)`
+const Container = styled(FlexBox)`
   box-sizing: border-box;
-  width: 308px;
+  width: 32%;
   padding: 24px 24px 0px 24px;
   background-color: ${SHADE['000']};
   border-radius: 12px;
@@ -26,7 +26,7 @@ export function Summary() {
   } = useTokenStore();
 
   return (
-    <SummaryWrapper column>
+    <Container column>
       <Text semibold body color={SHADE['700']}>
         요약
       </Text>
@@ -34,6 +34,6 @@ export function Summary() {
       <HoldingToken icon={getTokenImageByType('Solana')} token="Solana" holding={Solana} />
       <HoldingToken icon={getTokenImageByType('Ethereum')} token="Ethereum" holding={Ethereum} />
       <HoldingToken icon={getTokenImageByType('BnB')} token="BnB" holding={BnB} />
-    </SummaryWrapper>
+    </Container>
   );
 }

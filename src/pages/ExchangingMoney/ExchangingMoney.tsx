@@ -9,7 +9,8 @@ import React from 'react';
 import { ExchangeHistoryType } from 'types/Model';
 
 const Container = styled(FlexBox)`
-  padding-top: 120px;
+  width: 100%;
+  padding-top: 11%;
 `;
 
 const Title = styled(Text)`
@@ -17,11 +18,12 @@ const Title = styled(Text)`
 `;
 
 const ContentWrapper = styled(FlexBox)`
+  width: 100%;
   gap: 18px;
 `;
 
 const ExchangeWrapper = styled(FlexBox)`
-  width: 634px;
+  width: 66%;
 `;
 
 const HistoryItemWrapper = styled(FlexBox)`

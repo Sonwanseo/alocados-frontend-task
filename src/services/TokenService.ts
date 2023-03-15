@@ -19,7 +19,7 @@ export const getResultAmount = (targetType: TokenType, targetAmount: string, res
       break;
   }
 
-  return isNaN(resultAmount) ? 0 : resultAmount;
+  return isNaN(resultAmount) ? 0 : parseFloat(resultAmount.toFixed(2));
 };
 
 export const checkNoneHoldingError = (holdingToken: number) => {
