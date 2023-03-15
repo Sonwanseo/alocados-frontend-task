@@ -1,7 +1,7 @@
 import { TokenService } from 'services';
 import React from 'react';
 import { TokenType } from 'types/Model';
-import { useTokenStore } from 'store';
+import { useHistoryStore, useTokenStore } from 'store';
 
 export function useExchangingMoney() {
   const [targetType, setTargetType] = React.useState<TokenType | undefined>(undefined);
@@ -13,6 +13,7 @@ export function useExchangingMoney() {
   const [minimumAmountShortageError, setMinimumAmountShortageError] = React.useState(false);
 
   const { tokens, addTokens, subtractTokens } = useTokenStore();
+  const { addHistory } = useHistoryStore();
 
   React.useEffect(() => {
     checkNoneHoldingError();
@@ -64,6 +65,14 @@ export function useExchangingMoney() {
 
     subtractTokens(targetType, parseFloat(targetAmount));
     addTokens(resultType, resultAmount);
+
+    addHistory({
+      date: new Date(),
+      targetType,
+      targetAmount: parseFloat(targetAmount),
+      resultType,
+      resultAmount,
+    });
 
     setTargetType(undefined);
     setTargetAmount('1');
