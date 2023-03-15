@@ -17,7 +17,7 @@ const Container = styled(FlexBox)`
 `;
 
 const TextWrapper = styled.div`
-  width: 206px;
+  width: 32.5%;
 `;
 
 const TokenImage = styled.img`

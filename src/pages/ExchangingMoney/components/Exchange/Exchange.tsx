@@ -5,13 +5,21 @@ import Swap from 'assets/svg/Swap.svg';
 import { Select } from '../Select';
 import { TokenType } from 'types/Model';
 
+const Container = styled(FlexBox)`
+  width: 100%;
+  align-items: center;
+`;
+
 const BoxWrapper = styled(FlexBox)`
   gap: 16px;
+  width: 100%;
+  height: 56px;
 `;
 
 const TargetBox = styled(FlexBox)<{ disabled: boolean }>`
   box-sizing: border-box;
-  width: 472px;
+  width: 74%;
+  height: 100%;
   padding: 10px 16px 10px 14px;
   background-color: ${SHADE['000']};
   gap: 4px;
@@ -38,8 +46,8 @@ const SwapIcon = styled.img`
 
 const ResultBox = styled(FlexBox)`
   box-sizing: border-box;
-  width: 472px;
-  height: 54px;
+  width: 74%;
+  height: 100%;
   padding: 10px 16px 10px 14px;
   border-radius: 12px;
   align-items: center;
@@ -77,12 +85,7 @@ export function Exchange(props: Props) {
   } = props;
 
   return (
-    <FlexBox
-      column
-      style={{
-        alignItems: 'center',
-      }}
-    >
+    <Container column>
       <BoxWrapper>
         <TargetBox column disabled={error}>
           <Text overline semibold color={SHADE['600']}>
@@ -104,6 +107,6 @@ export function Exchange(props: Props) {
       <ExchangeButton buttonType="Primary" disabled={!targetType || !resultType || error || targetType === resultType} onClick={exchangeToken}>
         환전
       </ExchangeButton>
-    </FlexBox>
+    </Container>
   );
 }

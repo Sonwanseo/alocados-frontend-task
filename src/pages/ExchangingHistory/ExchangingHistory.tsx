@@ -8,8 +8,8 @@ import { useHistoryStore } from 'store';
 import React from 'react';
 
 const Container = styled(FlexBox)`
-  width: 634px;
-  padding-top: 120px;
+  width: 66%;
+  padding-top: 11%;
 `;
 
 const Title = styled(Text)`

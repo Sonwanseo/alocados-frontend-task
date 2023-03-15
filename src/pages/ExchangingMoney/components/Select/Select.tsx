@@ -8,8 +8,8 @@ import React from 'react';
 
 const Container = styled(FlexBox)`
   box-sizing: border-box;
-  width: 147px;
-  height: 54px;
+  width: 23.2%;
+  height: 100%;
   background-color: ${SHADE['000']};
   padding: 15.5px 10px;
   justify-content: space-between;

@@ -7,7 +7,8 @@ const Container = styled(FlexBox)`
 `;
 
 const ContentWrapper = styled(FlexBox)`
-  width: 960px;
+  width: 50%;
+  min-width: 960px;
 `;
 
 type Props = {
