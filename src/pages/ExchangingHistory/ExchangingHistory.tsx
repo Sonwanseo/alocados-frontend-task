@@ -4,6 +4,7 @@ import { BasicLayout } from 'layouts';
 import styled from 'styled-components';
 import DownArrow from 'assets/svg/DownArrow.svg';
 import { ExchangeHistoryItem } from 'components/Business';
+import { useHistoryStore } from 'store';
 
 const Container = styled(FlexBox)`
   width: 634px;
@@ -40,6 +41,8 @@ const DownArrowImage = styled.img`
 `;
 
 export function ExchangingHistory() {
+  const { histories } = useHistoryStore();
+
   return (
     <BasicLayout>
       <Container column>
@@ -54,14 +57,14 @@ export function ExchangingHistory() {
             </HistoryLeftWrapper>
             <Text caption>환전금액</Text>
           </HistoryTopWrapper>
-          {[0, 1].map((_, index) => (
+          {histories.map((item) => (
             <ExchangeHistoryItem
-              key={index}
-              date="2023-03-12, AM 10:50"
-              targetType="Ethereum"
-              targetAmount="1,302.44"
-              resultType="Solana"
-              resultAmount="1,302.44"
+              key={item.date.toString()}
+              date={item.date}
+              targetType={item.targetType}
+              targetAmount={item.targetAmount}
+              resultType={item.resultType}
+              resultAmount={item.resultAmount}
             />
           ))}
         </HistoryListWrapper>
