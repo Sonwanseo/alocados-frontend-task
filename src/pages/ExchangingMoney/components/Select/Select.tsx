@@ -1,9 +1,10 @@
 import { FlexBox, Text } from 'components/Common';
 import { SHADE } from 'constants/Theme';
 import styled from 'styled-components';
-import { getTokenImageByType } from 'utils';
+import { getTokenImageByType, getUnselectedToken } from 'utils';
 import DownChevron from 'assets/svg/DownChevron.svg';
 import { TokenType } from 'types/Model';
+import React from 'react';
 
 const Container = styled(FlexBox)`
   box-sizing: border-box;
@@ -31,24 +32,50 @@ const DownChevronImage = styled.img`
   height: 24px;
 `;
 
+const DropDownWrapper = styled(FlexBox)`
+  position: relative;
+  width: 10px;
+  height: 10px;
+  top: 20px;
+  left: 20px;
+  gap: 4px;
+`;
+
 type Props = {
-  tokenType: TokenType;
+  tokenType: TokenType | undefined;
+  changeToken: (token: TokenType) => void;
 };
 
 export function Select(props: Props) {
-  const { tokenType } = props;
+  const { tokenType, changeToken } = props;
+
+  const [showDropDown, setShowDropDown] = React.useState(false);
+
+  const onClickChangeToken = (item: TokenType) => {
+    setShowDropDown((prev) => !prev);
+    changeToken(item);
+  };
 
   return (
     <Container>
-      <TokenWrapper
-        style={{
-          alignItems: 'center',
-        }}
-      >
-        <TokenImage src={getTokenImageByType(tokenType)} />
-        <Text caption>{tokenType}</Text>
+      <TokenWrapper>
+        {tokenType && (
+          <>
+            <TokenImage src={getTokenImageByType(tokenType)} />
+            <Text caption>{tokenType}</Text>
+          </>
+        )}
       </TokenWrapper>
-      <DownChevronImage src={DownChevron} />
+      {showDropDown && (
+        <DropDownWrapper column>
+          {getUnselectedToken(tokenType).map((item) => (
+            <Text caption key={item} onClick={() => onClickChangeToken(item)}>
+              {item}
+            </Text>
+          ))}
+        </DropDownWrapper>
+      )}
+      <DownChevronImage src={DownChevron} onClick={() => setShowDropDown((prev) => !prev)} />
     </Container>
   );
 }

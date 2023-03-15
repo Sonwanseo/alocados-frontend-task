@@ -32,7 +32,7 @@ export function Header() {
       <img src={Logo} />
       <RightWrapper>
         <Button
-          type={selected === 'ExchangingMoney' ? 'Secondary' : 'Default'}
+          buttonType={selected === 'ExchangingMoney' ? 'Secondary' : 'Default'}
           onClick={() => {
             setSelected('ExchangingMoney');
             navigate(RoutingPath.ExchangingMoney);
@@ -41,7 +41,7 @@ export function Header() {
           환전하기
         </Button>
         <Button
-          type={selected === 'ExchangingHistory' ? 'Secondary' : 'Default'}
+          buttonType={selected === 'ExchangingHistory' ? 'Secondary' : 'Default'}
           onClick={() => {
             setSelected('ExchangingHistory');
             navigate(RoutingPath.ExchangingHistory);

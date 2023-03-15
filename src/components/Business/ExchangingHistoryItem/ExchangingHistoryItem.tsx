@@ -3,7 +3,7 @@ import { SHADE } from 'constants/Theme';
 import styled from 'styled-components';
 import { TokenType } from 'types/Model';
 import RightChevron from 'assets/svg/RightChevron.svg';
-import { getTokenImageByType } from 'utils';
+import { getTokenImageByType, getTokenUnitByType } from 'utils';
 
 const Container = styled(FlexBox)`
   width: 100%;
@@ -45,14 +45,14 @@ export function ExchangingHistoryItem(props: Props) {
       <FlexBox center>
         <TokenImage src={getTokenImageByType(targetType)} />
         <Text body2 semibold>
-          {targetAmount}
+          {`${targetAmount} ${getTokenUnitByType(targetType)}`}
         </Text>
       </FlexBox>
       <img src={RightChevron} />
       <FlexBox center>
         <TokenImage src={getTokenImageByType(resultType)} />
         <Text body2 semibold>
-          {resultAmount}
+          {`${resultAmount} ${getTokenUnitByType(resultType)}`}
         </Text>
       </FlexBox>
     </Container>

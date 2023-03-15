@@ -3,6 +3,7 @@ import { BasicLayout } from 'layouts';
 import { ExchangingHistoryItem } from 'components/Business';
 import { Exchange, Summary } from './components';
 import styled from 'styled-components';
+import { useExchangingMoney } from './useExchangingMoney';
 
 const Container = styled(FlexBox)`
   padding-top: 120px;
@@ -26,6 +27,20 @@ const HistoryItemWrapper = styled(FlexBox)`
 `;
 
 export function ExchangingMoney() {
+  const {
+    targetType,
+    targetAmount,
+    resultType,
+    resultAmount,
+    noneHoldingError,
+    overExchangeError,
+    minimumAmountShortageError,
+    changeTargetType,
+    changeTargetAmount,
+    changeResultType,
+    exchangeToken,
+  } = useExchangingMoney();
+
   return (
     <BasicLayout>
       <Container column>
@@ -33,14 +48,26 @@ export function ExchangingMoney() {
         <ContentWrapper>
           <Summary />
           <ExchangeWrapper column>
-            <Exchange />
+            <Exchange
+              targetType={targetType}
+              targetAmount={targetAmount}
+              resultType={resultType}
+              resultAmount={resultAmount}
+              noneHoldingError={noneHoldingError}
+              overExchangeError={overExchangeError}
+              minimumAmountShortageError={minimumAmountShortageError}
+              changeTargetType={changeTargetType}
+              changeTargetAmount={changeTargetAmount}
+              changeResultType={changeResultType}
+              exchangeToken={exchangeToken}
+            />
             <HistoryItemWrapper>
               <ExchangingHistoryItem
                 date="2023-03-12, AM 10:50"
                 targetType="Ethereum"
-                targetAmount="1,302.44 ETH"
+                targetAmount="1,302.44"
                 resultType="Solana"
-                resultAmount="1,302.44 SOL"
+                resultAmount="1,302.44"
               />
             </HistoryItemWrapper>
           </ExchangeWrapper>

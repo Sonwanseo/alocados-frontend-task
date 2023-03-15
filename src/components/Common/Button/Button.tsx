@@ -3,8 +3,8 @@ import styled from 'styled-components';
 import { PRIMARY, WHITE, SHADE } from 'constants/Theme';
 import { Text } from '../Text';
 
-type Props = React.HTMLAttributes<HTMLButtonElement> & {
-  type?: 'Primary' | 'Secondary' | 'Default';
+type Props = React.ButtonHTMLAttributes<HTMLButtonElement> & {
+  buttonType?: 'Primary' | 'Secondary' | 'Default';
   children?: React.ReactNode;
 };
 
@@ -25,11 +25,11 @@ const StyledText = styled(Text)`
 `;
 
 export default function (props: Props) {
-  const { type = 'Default', children, ...rest } = props;
+  const { buttonType = 'Default', children, disabled, ...rest } = props;
 
   let color, backgroundColor;
 
-  switch (type) {
+  switch (buttonType) {
     case 'Primary':
       color = PRIMARY['000'];
       backgroundColor = PRIMARY['100'];
@@ -41,6 +41,11 @@ export default function (props: Props) {
     default:
       color = SHADE['700'];
       backgroundColor = WHITE;
+  }
+
+  if (disabled) {
+    color = SHADE['400'];
+    backgroundColor = SHADE['200'];
   }
 
   return (
