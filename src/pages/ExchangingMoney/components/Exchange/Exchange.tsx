@@ -1,5 +1,5 @@
 import { Button, FlexBox, Text } from 'components/Common';
-import { SHADE } from 'constants/Theme';
+import { SHADE, ERROR } from 'constants/Theme';
 import styled from 'styled-components';
 import Swap from 'assets/svg/Swap.svg';
 import { Select } from '../Select';
@@ -9,7 +9,7 @@ const BoxWrapper = styled(FlexBox)`
   gap: 16px;
 `;
 
-const TargetBox = styled(FlexBox)`
+const TargetBox = styled(FlexBox)<{ disabled: boolean }>`
   box-sizing: border-box;
   width: 472px;
   padding: 10px 16px 10px 14px;
@@ -17,6 +17,7 @@ const TargetBox = styled(FlexBox)`
   gap: 4px;
   border-radius: 12px;
   justify-content: center;
+  border: ${(props) => (props.disabled ? `1px solid ${ERROR[100]}` : 'none')};
 `;
 
 const TargetInput = styled.input`
@@ -51,13 +52,14 @@ type Props = {
   targetType: TokenType;
   resultType: TokenType;
   resultAmount: number;
+  noneHoldingError: boolean;
   changeTargetType: (token: TokenType) => void;
   changeTargetAmount: (amount: string) => void;
   changeResultType: (token: TokenType) => void;
 };
 
 export function Exchange(props: Props) {
-  const { targetType, resultType, resultAmount, changeTargetType, changeTargetAmount, changeResultType } = props;
+  const { targetType, resultType, resultAmount, noneHoldingError, changeTargetType, changeTargetAmount, changeResultType } = props;
 
   return (
     <FlexBox
@@ -67,11 +69,11 @@ export function Exchange(props: Props) {
       }}
     >
       <BoxWrapper>
-        <TargetBox column>
+        <TargetBox column disabled={noneHoldingError}>
           <Text overline semibold color={SHADE['600']}>
             전환 수량
           </Text>
-          <TargetInput placeholder="0" onChange={(e) => changeTargetAmount(e.target.value)} />
+          <TargetInput placeholder="0" onChange={(e) => changeTargetAmount(e.target.value)} disabled={noneHoldingError} />
         </TargetBox>
         <Select tokenType={targetType} changeToken={changeTargetType} />
       </BoxWrapper>

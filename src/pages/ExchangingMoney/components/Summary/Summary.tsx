@@ -21,7 +21,9 @@ const Divider = styled(FlexBox)`
 `;
 
 export function Summary() {
-  const { solana, ethereum, BnB } = useTokenStore();
+  const {
+    tokens: { Solana, Ethereum, BnB },
+  } = useTokenStore();
 
   return (
     <SummaryWrapper column>
@@ -29,8 +31,8 @@ export function Summary() {
         요약
       </Text>
       <Divider />
-      <HoldingToken icon={getTokenImageByType('Solana')} token="Solana" holding={solana} />
-      <HoldingToken icon={getTokenImageByType('Ethereum')} token="Ethereum" holding={ethereum} />
+      <HoldingToken icon={getTokenImageByType('Solana')} token="Solana" holding={Solana} />
+      <HoldingToken icon={getTokenImageByType('Ethereum')} token="Ethereum" holding={Ethereum} />
       <HoldingToken icon={getTokenImageByType('BnB')} token="BnB" holding={BnB} />
     </SummaryWrapper>
   );
