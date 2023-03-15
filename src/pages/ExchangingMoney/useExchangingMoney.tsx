@@ -46,7 +46,8 @@ export function useExchangingMoney() {
   }, []);
 
   const changeTargetAmount = (amount: string) => {
-    setTargetAmount(amount);
+    if (amount.includes('.') && amount.split('.')[1].length > 10) setTargetAmount(amount.slice(0, -1));
+    else setTargetAmount(amount);
   };
 
   const initInput = () => {
