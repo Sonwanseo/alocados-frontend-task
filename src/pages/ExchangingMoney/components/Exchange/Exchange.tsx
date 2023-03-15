@@ -96,7 +96,12 @@ export function Exchange(props: Props) {
         </ResultBox>
         <Select tokenType={resultType} changeToken={changeResultType} />
       </BoxWrapper>
-      <ExchangeButton type="Primary">환전</ExchangeButton>
+      <ExchangeButton
+        buttonType="Primary"
+        disabled={!targetType || !resultType || noneHoldingError || minimumAmountShortageError || targetType === resultType}
+      >
+        환전
+      </ExchangeButton>
     </FlexBox>
   );
 }
