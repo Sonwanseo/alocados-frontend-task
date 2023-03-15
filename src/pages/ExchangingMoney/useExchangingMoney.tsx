@@ -1,4 +1,4 @@
-import { TokenService } from 'pages/services';
+import { TokenService } from 'services';
 import React from 'react';
 import { TokenType } from 'types/Model';
 
