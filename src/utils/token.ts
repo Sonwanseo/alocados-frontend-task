@@ -3,8 +3,8 @@ import Ethereum from 'assets/svg/Ethereum.svg';
 import BnB from 'assets/svg/BnB.svg';
 import { TokenType } from 'types/Model';
 
-export function getTokenImageByType(type: TokenType) {
-  switch (type) {
+export function getTokenImageByType(token: TokenType) {
+  switch (token) {
     case 'Solana':
       return Solana;
     case 'Ethereum':
@@ -16,8 +16,8 @@ export function getTokenImageByType(type: TokenType) {
   }
 }
 
-export function getTokenUnitByType(type: TokenType) {
-  switch (type) {
+export function getTokenUnitByType(token: TokenType) {
+  switch (token) {
     case 'Solana':
       return 'SOL';
     case 'Ethereum':
@@ -27,4 +27,10 @@ export function getTokenUnitByType(type: TokenType) {
     default:
       return 'SOL';
   }
+}
+
+export function getUnselectedToken(selectedToken: TokenType) {
+  const tokenArr: TokenType[] = ['Solana', 'Ethereum', 'BnB'];
+
+  return tokenArr.filter((item) => item !== selectedToken);
 }
