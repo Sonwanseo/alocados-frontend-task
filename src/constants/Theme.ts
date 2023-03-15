@@ -14,4 +14,8 @@ export const SHADE = {
   Opacity5: 'rgba(42, 50, 73, 0.05)',
 };
 
+export const ERROR = {
+  '100': '#F7254B',
+};
+
 export const WHITE = '#FFFFFF';
