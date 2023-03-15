@@ -3,6 +3,7 @@ import { BasicLayout } from 'layouts';
 import { ExchangingHistoryItem } from 'components/Business';
 import { Exchange, Summary } from './components';
 import styled from 'styled-components';
+import { useExchangingMoney } from './useExchangingMoney';
 
 const Container = styled(FlexBox)`
   padding-top: 120px;
@@ -26,6 +27,8 @@ const HistoryItemWrapper = styled(FlexBox)`
 `;
 
 export function ExchangingMoney() {
+  const { targetType, resultType, changeTargetType, changeResultType } = useExchangingMoney();
+
   return (
     <BasicLayout>
       <Container column>
@@ -33,7 +36,7 @@ export function ExchangingMoney() {
         <ContentWrapper>
           <Summary />
           <ExchangeWrapper column>
-            <Exchange />
+            <Exchange targetType={targetType} resultType={resultType} changeTargetType={changeTargetType} changeResultType={changeResultType} />
             <HistoryItemWrapper>
               <ExchangingHistoryItem
                 date="2023-03-12, AM 10:50"

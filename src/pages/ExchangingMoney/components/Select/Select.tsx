@@ -1,7 +1,7 @@
 import { FlexBox, Text } from 'components/Common';
 import { SHADE } from 'constants/Theme';
 import styled from 'styled-components';
-import { getTokenImageByType } from 'utils';
+import { getTokenImageByType, getUnselectedToken } from 'utils';
 import DownChevron from 'assets/svg/DownChevron.svg';
 import { TokenType } from 'types/Model';
 import React from 'react';
@@ -43,12 +43,18 @@ const DropDownWrapper = styled(FlexBox)`
 
 type Props = {
   tokenType: TokenType;
+  changeToken: (token: TokenType) => void;
 };
 
 export function Select(props: Props) {
-  const { tokenType } = props;
+  const { tokenType, changeToken } = props;
 
   const [showDropDown, setShowDropDown] = React.useState(false);
+
+  const onClickChangeToken = (item: TokenType) => {
+    setShowDropDown((prev) => !prev);
+    changeToken(item);
+  };
 
   return (
     <Container>
@@ -58,8 +64,11 @@ export function Select(props: Props) {
       </TokenWrapper>
       {showDropDown && (
         <DropDownWrapper column>
-          <Text caption>Solana</Text>
-          <Text caption>BnB</Text>
+          {getUnselectedToken(tokenType).map((item) => (
+            <Text caption key={item} onClick={() => onClickChangeToken(item)}>
+              {item}
+            </Text>
+          ))}
         </DropDownWrapper>
       )}
       <DownChevronImage src={DownChevron} onClick={() => setShowDropDown((prev) => !prev)} />

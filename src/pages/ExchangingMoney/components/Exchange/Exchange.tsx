@@ -3,6 +3,7 @@ import { SHADE } from 'constants/Theme';
 import styled from 'styled-components';
 import Swap from 'assets/svg/Swap.svg';
 import { Select } from '../Select';
+import { TokenType } from 'types/Model';
 
 const BoxWrapper = styled(FlexBox)`
   gap: 16px;
@@ -46,7 +47,16 @@ const ExchangeButton = styled(Button)`
   margin-top: 47px;
 `;
 
-export function Exchange() {
+type Props = {
+  targetType: TokenType;
+  resultType: TokenType;
+  changeTargetType: (token: TokenType) => void;
+  changeResultType: (token: TokenType) => void;
+};
+
+export function Exchange(props: Props) {
+  const { targetType, resultType, changeTargetType, changeResultType } = props;
+
   return (
     <FlexBox
       column
@@ -61,7 +71,7 @@ export function Exchange() {
           </Text>
           <TargetInput placeholder="1" />
         </TargetBox>
-        <Select tokenType="Ethereum" />
+        <Select tokenType={targetType} changeToken={changeTargetType} />
       </BoxWrapper>
       <SwapIcon src={Swap} />
       <BoxWrapper>
@@ -70,7 +80,7 @@ export function Exchange() {
             100
           </Text>
         </ResultBox>
-        <Select tokenType="Solana" />
+        <Select tokenType={resultType} changeToken={changeResultType} />
       </BoxWrapper>
       <ExchangeButton type="Primary">환전</ExchangeButton>
     </FlexBox>
