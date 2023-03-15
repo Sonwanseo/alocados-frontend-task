@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import Logo from 'assets/svg/Logo.svg';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { RoutingPath } from 'router/CONSTANTS';
+import { RoutingPath } from 'constants/Routing';
 
 const Container = styled(FlexBox)`
   justify-content: space-between;
