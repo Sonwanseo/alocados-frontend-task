@@ -17,3 +17,15 @@ export const getResultAmount = (targetType: TokenType, targetAmount: string, res
 
   return isNaN(resultAmount) ? 0 : resultAmount;
 };
+
+export const checkNoneHoldingError = (holdingToken: number) => {
+  return holdingToken <= 0;
+};
+
+export const checkOverExchangeError = (targetAmount: string, holdingToken: number) => {
+  return parseFloat(targetAmount) > holdingToken;
+};
+
+export const checkMinimumAmountSortageError = (targetAmount: string) => {
+  return parseFloat(targetAmount) === 0 || targetAmount === '';
+};

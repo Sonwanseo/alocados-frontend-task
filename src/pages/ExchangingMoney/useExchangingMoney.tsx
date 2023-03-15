@@ -8,20 +8,26 @@ export function useExchangingMoney() {
   const [targetAmount, setTargetAmount] = React.useState('1');
   const [resultType, setResultType] = React.useState<TokenType | undefined>(undefined);
   const [resultAmount, setResultAmount] = React.useState(0);
+  const [error, setError] = React.useState(false);
   const [noneHoldingError, setNoneHoldingError] = React.useState(false);
-  const [overExchangeError, setOverExchangeError] = React.useState(false);
-  const [minimumAmountShortageError, setMinimumAmountShortageError] = React.useState(false);
 
   const { tokens, addTokens, subtractTokens } = useTokenStore();
   const { addHistory } = useHistoryStore();
 
   React.useEffect(() => {
-    checkNoneHoldingError();
+    if (!targetType) return;
+
+    const isError = TokenService.checkNoneHoldingError(tokens[targetType]);
+
+    setNoneHoldingError(isError);
+    setError(isError);
   }, [targetType]);
 
   React.useEffect(() => {
-    checkOverExchangeError();
-    checkMinimumAmountShortageError();
+    if (!targetType) return;
+
+    setError(TokenService.checkOverExchangeError(targetAmount, tokens[targetType]));
+    setError(TokenService.checkMinimumAmountSortageError(targetAmount));
   }, [targetAmount]);
 
   React.useEffect(() => {
@@ -41,23 +47,10 @@ export function useExchangingMoney() {
     setTargetAmount(amount);
   };
 
-  const checkNoneHoldingError = () => {
-    if (!targetType) return;
-
-    if (tokens[targetType] <= 0) setNoneHoldingError(true);
-    else setNoneHoldingError(false);
-  };
-
-  const checkOverExchangeError = () => {
-    if (!targetType) return;
-
-    if (parseFloat(targetAmount) > tokens[targetType]) setOverExchangeError(true);
-    else setOverExchangeError(false);
-  };
-
-  const checkMinimumAmountShortageError = () => {
-    if (parseFloat(targetAmount) === 0 || targetAmount === '') setMinimumAmountShortageError(true);
-    else setMinimumAmountShortageError(false);
+  const initInput = () => {
+    setTargetType(undefined);
+    setTargetAmount('1');
+    setResultType(undefined);
   };
 
   const exchangeToken = () => {
@@ -74,9 +67,7 @@ export function useExchangingMoney() {
       resultAmount,
     });
 
-    setTargetType(undefined);
-    setTargetAmount('1');
-    setResultType(undefined);
+    initInput();
   };
 
   return {
@@ -84,9 +75,8 @@ export function useExchangingMoney() {
     targetAmount,
     resultType,
     resultAmount,
+    error,
     noneHoldingError,
-    overExchangeError,
-    minimumAmountShortageError,
     changeTargetType,
     changeTargetAmount,
     changeResultType,
