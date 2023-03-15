@@ -42,7 +42,7 @@ const DropDownWrapper = styled(FlexBox)`
 `;
 
 type Props = {
-  tokenType: TokenType;
+  tokenType: TokenType | undefined;
   changeToken: (token: TokenType) => void;
 };
 
@@ -59,8 +59,12 @@ export function Select(props: Props) {
   return (
     <Container>
       <TokenWrapper>
-        <TokenImage src={getTokenImageByType(tokenType)} />
-        <Text caption>{tokenType}</Text>
+        {tokenType && (
+          <>
+            <TokenImage src={getTokenImageByType(tokenType)} />
+            <Text caption>{tokenType}</Text>
+          </>
+        )}
       </TokenWrapper>
       {showDropDown && (
         <DropDownWrapper column>

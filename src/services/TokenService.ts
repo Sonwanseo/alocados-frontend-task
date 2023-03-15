@@ -2,7 +2,7 @@ import { TokenType } from 'types/Model';
 
 export const getResultAmount = (targetType: TokenType, targetAmount: string, resultType: TokenType) => {
   const targetAmountNumber = parseFloat(targetAmount);
-  let resultAmount = 0;
+  let resultAmount = targetAmountNumber;
 
   if (targetType === 'Solana') {
     if (resultType === 'Ethereum') resultAmount = targetAmountNumber / 100;

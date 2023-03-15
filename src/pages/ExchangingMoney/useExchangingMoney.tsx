@@ -4,9 +4,9 @@ import { TokenType } from 'types/Model';
 import { useTokenStore } from 'store';
 
 export function useExchangingMoney() {
-  const [targetType, setTargetType] = React.useState<TokenType>('Solana');
+  const [targetType, setTargetType] = React.useState<TokenType | undefined>(undefined);
   const [targetAmount, setTargetAmount] = React.useState('1');
-  const [resultType, setResultType] = React.useState<TokenType>('Ethereum');
+  const [resultType, setResultType] = React.useState<TokenType | undefined>(undefined);
   const [resultAmount, setResultAmount] = React.useState(0);
   const [noneHoldingError, setNoneHoldingError] = React.useState(false);
   const [minimumAmountShortageError, setMinimumAmountShortageError] = React.useState(false);
@@ -26,6 +26,7 @@ export function useExchangingMoney() {
   });
 
   React.useEffect(() => {
+    if (!targetType || !resultType) return;
     setResultAmount(TokenService.getResultAmount(targetType, targetAmount, resultType));
   }, [targetType, targetAmount, resultType]);
 
@@ -42,6 +43,8 @@ export function useExchangingMoney() {
   };
 
   const checkNoneHoldingError = () => {
+    if (!targetType) return;
+
     if (tokens[targetType] <= 0) setNoneHoldingError(true);
     else setNoneHoldingError(false);
   };

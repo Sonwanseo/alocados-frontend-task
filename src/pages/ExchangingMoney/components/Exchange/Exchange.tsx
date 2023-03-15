@@ -49,8 +49,8 @@ const ExchangeButton = styled(Button)`
 `;
 
 type Props = {
-  targetType: TokenType;
-  resultType: TokenType;
+  targetType: TokenType | undefined;
+  resultType: TokenType | undefined;
   resultAmount: number;
   noneHoldingError: boolean;
   minimumAmountShortageError: boolean;

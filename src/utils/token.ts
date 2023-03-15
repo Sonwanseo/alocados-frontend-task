@@ -29,7 +29,7 @@ export function getTokenUnitByType(token: TokenType) {
   }
 }
 
-export function getUnselectedToken(selectedToken: TokenType) {
+export function getUnselectedToken(selectedToken: TokenType | undefined) {
   const tokenArr: TokenType[] = ['Solana', 'Ethereum', 'BnB'];
 
   return tokenArr.filter((item) => item !== selectedToken);
