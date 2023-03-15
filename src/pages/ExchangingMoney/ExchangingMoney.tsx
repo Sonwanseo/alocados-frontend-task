@@ -27,7 +27,7 @@ const HistoryItemWrapper = styled(FlexBox)`
 `;
 
 export function ExchangingMoney() {
-  const { targetType, resultType, changeTargetType, changeResultType } = useExchangingMoney();
+  const { targetType, resultType, resultAmount, changeTargetType, changeTargetAmount, changeResultType } = useExchangingMoney();
 
   return (
     <BasicLayout>
@@ -36,7 +36,14 @@ export function ExchangingMoney() {
         <ContentWrapper>
           <Summary />
           <ExchangeWrapper column>
-            <Exchange targetType={targetType} resultType={resultType} changeTargetType={changeTargetType} changeResultType={changeResultType} />
+            <Exchange
+              targetType={targetType}
+              resultType={resultType}
+              resultAmount={resultAmount}
+              changeTargetType={changeTargetType}
+              changeTargetAmount={changeTargetAmount}
+              changeResultType={changeResultType}
+            />
             <HistoryItemWrapper>
               <ExchangingHistoryItem
                 date="2023-03-12, AM 10:50"

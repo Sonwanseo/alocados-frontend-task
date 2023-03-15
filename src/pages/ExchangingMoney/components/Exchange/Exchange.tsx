@@ -50,12 +50,14 @@ const ExchangeButton = styled(Button)`
 type Props = {
   targetType: TokenType;
   resultType: TokenType;
+  resultAmount: number;
   changeTargetType: (token: TokenType) => void;
+  changeTargetAmount: (amount: string) => void;
   changeResultType: (token: TokenType) => void;
 };
 
 export function Exchange(props: Props) {
-  const { targetType, resultType, changeTargetType, changeResultType } = props;
+  const { targetType, resultType, resultAmount, changeTargetType, changeTargetAmount, changeResultType } = props;
 
   return (
     <FlexBox
@@ -69,7 +71,7 @@ export function Exchange(props: Props) {
           <Text overline semibold color={SHADE['600']}>
             전환 수량
           </Text>
-          <TargetInput placeholder="1" />
+          <TargetInput placeholder="0" onChange={(e) => changeTargetAmount(e.target.value)} />
         </TargetBox>
         <Select tokenType={targetType} changeToken={changeTargetType} />
       </BoxWrapper>
@@ -77,7 +79,7 @@ export function Exchange(props: Props) {
       <BoxWrapper>
         <ResultBox>
           <Text body2 semibold color={SHADE['700']}>
-            100
+            {resultAmount}
           </Text>
         </ResultBox>
         <Select tokenType={resultType} changeToken={changeResultType} />
