@@ -9,25 +9,23 @@ export function useExchangingMoney() {
   const [resultType, setResultType] = React.useState<TokenType | undefined>(undefined);
   const [resultAmount, setResultAmount] = React.useState(0);
   const [noneHoldingError, setNoneHoldingError] = React.useState(false);
+  const [overExchangeError, setOverExchangeError] = React.useState(false);
   const [minimumAmountShortageError, setMinimumAmountShortageError] = React.useState(false);
 
-  const { tokens } = useTokenStore();
+  const { tokens, addTokens, subtractTokens } = useTokenStore();
 
   React.useEffect(() => {
     checkNoneHoldingError();
   }, [targetType]);
 
   React.useEffect(() => {
+    checkOverExchangeError();
     checkMinimumAmountShortageError();
   }, [targetAmount]);
 
   React.useEffect(() => {
-    console.log(noneHoldingError, minimumAmountShortageError);
-  });
-
-  React.useEffect(() => {
-    if (!targetType || !resultType) return;
-    setResultAmount(TokenService.getResultAmount(targetType, targetAmount, resultType));
+    if (!targetType || !resultType) setResultAmount(0);
+    else setResultAmount(TokenService.getResultAmount(targetType, targetAmount, resultType));
   }, [targetType, targetAmount, resultType]);
 
   const changeTargetType = React.useCallback((token: TokenType) => {
@@ -49,19 +47,40 @@ export function useExchangingMoney() {
     else setNoneHoldingError(false);
   };
 
+  const checkOverExchangeError = () => {
+    if (!targetType) return;
+
+    if (parseFloat(targetAmount) > tokens[targetType]) setOverExchangeError(true);
+    else setOverExchangeError(false);
+  };
+
   const checkMinimumAmountShortageError = () => {
     if (parseFloat(targetAmount) === 0 || targetAmount === '') setMinimumAmountShortageError(true);
     else setMinimumAmountShortageError(false);
   };
 
+  const exchangeToken = () => {
+    if (!targetType || !resultType) return;
+
+    subtractTokens(targetType, parseFloat(targetAmount));
+    addTokens(resultType, resultAmount);
+
+    setTargetType(undefined);
+    setTargetAmount('1');
+    setResultType(undefined);
+  };
+
   return {
     targetType,
+    targetAmount,
     resultType,
     resultAmount,
     noneHoldingError,
+    overExchangeError,
     minimumAmountShortageError,
     changeTargetType,
     changeTargetAmount,
     changeResultType,
+    exchangeToken,
   };
 }

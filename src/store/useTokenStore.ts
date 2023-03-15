@@ -3,11 +3,12 @@ import { create } from 'zustand';
 
 type TokenStoreType = {
   tokens: {
-    [token in TokenType]: number;
+    Solana: number;
+    Ethereum: number;
+    BnB: number;
   };
-  setSolana: (target: number) => void;
-  setEthereum: (target: number) => void;
-  setBnB: (target: number) => void;
+  addTokens: (targetToken: TokenType, targetAmount: number) => void;
+  subtractTokens: (targetToken: TokenType, targetAmount: number) => void;
 };
 
 export const useTokenStore = create<TokenStoreType>((set) => ({
@@ -16,7 +17,8 @@ export const useTokenStore = create<TokenStoreType>((set) => ({
     Ethereum: 512.01,
     BnB: 0,
   },
-  setSolana: (target: number) => set((state) => ({ ...state, solana: target })),
-  setEthereum: (target: number) => set((state) => ({ ...state, ethereum: target })),
-  setBnB: (target: number) => set((state) => ({ ...state, BnB: target })),
+  addTokens: (targetToken, targetAmount) =>
+    set((state) => ({ tokens: { ...state.tokens, [targetToken]: parseFloat((state.tokens[targetToken] + targetAmount).toFixed(2)) } })),
+  subtractTokens: (targetToken, targetAmount) =>
+    set((state) => ({ tokens: { ...state.tokens, [targetToken]: parseFloat((state.tokens[targetToken] - targetAmount).toFixed(2)) } })),
 }));

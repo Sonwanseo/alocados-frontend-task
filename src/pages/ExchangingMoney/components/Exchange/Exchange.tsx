@@ -21,6 +21,7 @@ const TargetBox = styled(FlexBox)<{ disabled: boolean }>`
 `;
 
 const TargetInput = styled.input`
+  width: 100%;
   font-weight: 600;
   font-size: 18px;
   color: ${SHADE['800']};
@@ -50,25 +51,31 @@ const ExchangeButton = styled(Button)`
 
 type Props = {
   targetType: TokenType | undefined;
+  targetAmount: string;
   resultType: TokenType | undefined;
   resultAmount: number;
   noneHoldingError: boolean;
+  overExchangeError: boolean;
   minimumAmountShortageError: boolean;
   changeTargetType: (token: TokenType) => void;
   changeTargetAmount: (amount: string) => void;
   changeResultType: (token: TokenType) => void;
+  exchangeToken: () => void;
 };
 
 export function Exchange(props: Props) {
   const {
     targetType,
+    targetAmount,
     resultType,
     resultAmount,
     noneHoldingError,
+    overExchangeError,
     minimumAmountShortageError,
     changeTargetType,
     changeTargetAmount,
     changeResultType,
+    exchangeToken,
   } = props;
 
   return (
@@ -79,11 +86,11 @@ export function Exchange(props: Props) {
       }}
     >
       <BoxWrapper>
-        <TargetBox column disabled={noneHoldingError || minimumAmountShortageError}>
+        <TargetBox column disabled={noneHoldingError || overExchangeError || minimumAmountShortageError}>
           <Text overline semibold color={SHADE['600']}>
             전환 수량
           </Text>
-          <TargetInput placeholder="1" onChange={(e) => changeTargetAmount(e.target.value)} disabled={noneHoldingError} />
+          <TargetInput value={targetAmount} onChange={(e) => changeTargetAmount(e.target.value)} disabled={noneHoldingError} />
         </TargetBox>
         <Select tokenType={targetType} changeToken={changeTargetType} />
       </BoxWrapper>
@@ -98,7 +105,8 @@ export function Exchange(props: Props) {
       </BoxWrapper>
       <ExchangeButton
         buttonType="Primary"
-        disabled={!targetType || !resultType || noneHoldingError || minimumAmountShortageError || targetType === resultType}
+        disabled={!targetType || !resultType || noneHoldingError || overExchangeError || minimumAmountShortageError || targetType === resultType}
+        onClick={exchangeToken}
       >
         환전
       </ExchangeButton>
