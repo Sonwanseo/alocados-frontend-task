@@ -1,7 +1,7 @@
 import { TokenType } from './Token';
 
 export type ExchangeHistoryType = {
-  date: string;
+  date: Date;
   targetType: TokenType;
   targetAmount: number;
   resultType: TokenType;
