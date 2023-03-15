@@ -1,6 +1,6 @@
 import { FlexBox, Text } from 'components/Common';
 import { BasicLayout } from 'layouts';
-import { ExchangingHistoryItem } from 'components/Business';
+import { ExchangeHistoryItem } from 'components/Business';
 import { Exchange, Summary } from './components';
 import styled from 'styled-components';
 import { useExchangingMoney } from './useExchangingMoney';
@@ -62,7 +62,7 @@ export function ExchangingMoney() {
               exchangeToken={exchangeToken}
             />
             <HistoryItemWrapper>
-              <ExchangingHistoryItem
+              <ExchangeHistoryItem
                 date="2023-03-12, AM 10:50"
                 targetType="Ethereum"
                 targetAmount="1,302.44"

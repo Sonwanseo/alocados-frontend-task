@@ -3,7 +3,7 @@ import { SHADE } from 'constants/Theme';
 import { BasicLayout } from 'layouts';
 import styled from 'styled-components';
 import DownArrow from 'assets/svg/DownArrow.svg';
-import { ExchangingHistoryItem } from 'components/Business';
+import { ExchangeHistoryItem } from 'components/Business';
 
 const Container = styled(FlexBox)`
   width: 634px;
@@ -55,7 +55,7 @@ export function ExchangingHistory() {
             <Text caption>환전금액</Text>
           </HistoryTopWrapper>
           {[0, 1].map((_, index) => (
-            <ExchangingHistoryItem
+            <ExchangeHistoryItem
               key={index}
               date="2023-03-12, AM 10:50"
               targetType="Ethereum"

@@ -34,7 +34,7 @@ type Props = {
   resultAmount: string;
 };
 
-export function ExchangingHistoryItem(props: Props) {
+export function ExchangeHistoryItem(props: Props) {
   const { date, targetType, targetAmount, resultType, resultAmount } = props;
 
   return (
