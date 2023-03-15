@@ -6,7 +6,9 @@ export const PRIMARY = {
 export const SHADE = {
   '000': '#FAFBFC',
   '100': '#F4F5F8',
+  '200': '#E0E2E8',
   '300': '#C8CCD7',
+  '400': '#A9B0C1',
   '600': '#546182',
   '700': '#4C5B7A',
   '800': '#313C57',
