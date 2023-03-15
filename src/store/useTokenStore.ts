@@ -15,7 +15,7 @@ export const useTokenStore = create<TokenStoreType>((set) => ({
   tokens: {
     Solana: 1211023512.34,
     Ethereum: 512.01,
-    BnB: 0,
+    BnB: 0.35,
   },
   addTokens: (targetToken, targetAmount) =>
     set((state) => ({ tokens: { ...state.tokens, [targetToken]: parseFloat((state.tokens[targetToken] + targetAmount).toFixed(2)) } })),

@@ -35,9 +35,8 @@ export function ExchangingMoney() {
     targetAmount,
     resultType,
     resultAmount,
+    error,
     noneHoldingError,
-    overExchangeError,
-    minimumAmountShortageError,
     changeTargetType,
     changeTargetAmount,
     changeResultType,
@@ -63,9 +62,8 @@ export function ExchangingMoney() {
               targetAmount={targetAmount}
               resultType={resultType}
               resultAmount={resultAmount}
+              error={error}
               noneHoldingError={noneHoldingError}
-              overExchangeError={overExchangeError}
-              minimumAmountShortageError={minimumAmountShortageError}
               changeTargetType={changeTargetType}
               changeTargetAmount={changeTargetAmount}
               changeResultType={changeResultType}

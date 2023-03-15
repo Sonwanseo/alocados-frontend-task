@@ -4,16 +4,32 @@ export const getResultAmount = (targetType: TokenType, targetAmount: string, res
   const targetAmountNumber = parseFloat(targetAmount);
   let resultAmount = targetAmountNumber;
 
-  if (targetType === 'Solana') {
-    if (resultType === 'Ethereum') resultAmount = targetAmountNumber / 100;
-    else if (resultType === 'BnB') resultAmount = targetAmountNumber / 2;
-  } else if (targetType === 'Ethereum') {
-    if (resultType === 'Solana') resultAmount = targetAmountNumber * 100;
-    else if (resultType === 'BnB') resultAmount = targetAmountNumber * 50;
-  } else {
-    if (resultType === 'Solana') resultAmount = targetAmountNumber * 2;
-    else if (resultType === 'Ethereum') resultAmount = targetAmountNumber / 50;
+  switch (targetType) {
+    case 'Solana':
+      if (resultType === 'Ethereum') resultAmount = resultAmount / 100;
+      else if (resultType === 'BnB') resultAmount = resultAmount / 2;
+      break;
+    case 'Ethereum':
+      if (resultType === 'Solana') resultAmount = resultAmount * 100;
+      else if (resultType === 'BnB') resultAmount = resultAmount * 50;
+      break;
+    case 'BnB':
+      if (resultType === 'Solana') resultAmount = resultAmount * 2;
+      else if (resultType === 'Ethereum') resultAmount = resultAmount / 50;
+      break;
   }
 
   return isNaN(resultAmount) ? 0 : resultAmount;
+};
+
+export const checkNoneHoldingError = (holdingToken: number) => {
+  return holdingToken <= 0;
+};
+
+export const checkOverExchangeError = (targetAmount: string, holdingToken: number) => {
+  return parseFloat(targetAmount) > holdingToken;
+};
+
+export const checkMinimumAmountSortageError = (targetAmount: string) => {
+  return parseFloat(targetAmount) === 0 || targetAmount === '';
 };

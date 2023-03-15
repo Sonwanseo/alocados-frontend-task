@@ -54,9 +54,8 @@ type Props = {
   targetAmount: string;
   resultType: TokenType | undefined;
   resultAmount: number;
+  error: boolean;
   noneHoldingError: boolean;
-  overExchangeError: boolean;
-  minimumAmountShortageError: boolean;
   changeTargetType: (token: TokenType) => void;
   changeTargetAmount: (amount: string) => void;
   changeResultType: (token: TokenType) => void;
@@ -69,9 +68,8 @@ export function Exchange(props: Props) {
     targetAmount,
     resultType,
     resultAmount,
+    error,
     noneHoldingError,
-    overExchangeError,
-    minimumAmountShortageError,
     changeTargetType,
     changeTargetAmount,
     changeResultType,
@@ -86,7 +84,7 @@ export function Exchange(props: Props) {
       }}
     >
       <BoxWrapper>
-        <TargetBox column disabled={noneHoldingError || overExchangeError || minimumAmountShortageError}>
+        <TargetBox column disabled={error}>
           <Text overline semibold color={SHADE['600']}>
             전환 수량
           </Text>
@@ -103,11 +101,7 @@ export function Exchange(props: Props) {
         </ResultBox>
         <Select tokenType={resultType} changeToken={changeResultType} />
       </BoxWrapper>
-      <ExchangeButton
-        buttonType="Primary"
-        disabled={!targetType || !resultType || noneHoldingError || overExchangeError || minimumAmountShortageError || targetType === resultType}
-        onClick={exchangeToken}
-      >
+      <ExchangeButton buttonType="Primary" disabled={!targetType || !resultType || error || targetType === resultType} onClick={exchangeToken}>
         환전
       </ExchangeButton>
     </FlexBox>
