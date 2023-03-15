@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import DownArrow from 'assets/svg/DownArrow.svg';
 import { ExchangeHistoryItem } from 'components/Business';
 import { useHistoryStore } from 'store';
+import React from 'react';
 
 const Container = styled(FlexBox)`
   width: 634px;
@@ -33,6 +34,7 @@ const HistoryTopWrapper = styled(FlexBox)`
 
 const HistoryLeftWrapper = styled(FlexBox)`
   align-items: center;
+  cursor: pointer;
 `;
 
 const DownArrowImage = styled.img`
@@ -42,6 +44,7 @@ const DownArrowImage = styled.img`
 
 export function ExchangingHistory() {
   const { histories } = useHistoryStore();
+  const [isDescending, setIsDescending] = React.useState(true);
 
   return (
     <BasicLayout>
@@ -49,15 +52,15 @@ export function ExchangingHistory() {
         <Title bold>환전 내역</Title>
         <HistoryListWrapper column>
           <HistoryTopWrapper>
-            <HistoryLeftWrapper>
+            <HistoryLeftWrapper onClick={() => setIsDescending((prev) => !prev)}>
               <Text caption bold>
-                환전 내역
+                환전 시간
               </Text>
               <DownArrowImage src={DownArrow} />
             </HistoryLeftWrapper>
             <Text caption>환전금액</Text>
           </HistoryTopWrapper>
-          {histories.map((item) => (
+          {(isDescending ? histories.slice().reverse() : histories).map((item) => (
             <ExchangeHistoryItem
               key={item.date.toString()}
               date={item.date}
