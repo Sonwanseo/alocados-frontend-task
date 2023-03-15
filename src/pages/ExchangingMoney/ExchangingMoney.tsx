@@ -1,9 +1,12 @@
 import { FlexBox, Text } from 'components/Common';
 import { BasicLayout } from 'layouts';
-import { ExchangingHistoryItem } from 'components/Business';
+import { ExchangeHistoryItem } from 'components/Business';
 import { Exchange, Summary } from './components';
 import styled from 'styled-components';
 import { useExchangingMoney } from './useExchangingMoney';
+import { useHistoryStore } from 'store';
+import React from 'react';
+import { ExchangeHistoryType } from 'types/Model';
 
 const Container = styled(FlexBox)`
   padding-top: 120px;
@@ -40,6 +43,13 @@ export function ExchangingMoney() {
     changeResultType,
     exchangeToken,
   } = useExchangingMoney();
+  const { histories } = useHistoryStore();
+
+  const [exchangeHistory, setExchangeHistory] = React.useState<ExchangeHistoryType>(histories[histories.length - 1]);
+
+  React.useEffect(() => {
+    setExchangeHistory(histories[histories.length - 1]);
+  }, [histories]);
 
   return (
     <BasicLayout>
@@ -62,12 +72,12 @@ export function ExchangingMoney() {
               exchangeToken={exchangeToken}
             />
             <HistoryItemWrapper>
-              <ExchangingHistoryItem
-                date="2023-03-12, AM 10:50"
-                targetType="Ethereum"
-                targetAmount="1,302.44"
-                resultType="Solana"
-                resultAmount="1,302.44"
+              <ExchangeHistoryItem
+                date={exchangeHistory.date}
+                targetType={exchangeHistory.targetType}
+                targetAmount={exchangeHistory.targetAmount}
+                resultType={exchangeHistory.resultType}
+                resultAmount={exchangeHistory.resultAmount}
               />
             </HistoryItemWrapper>
           </ExchangeWrapper>

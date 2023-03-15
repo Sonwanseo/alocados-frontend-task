@@ -3,7 +3,9 @@ import { SHADE } from 'constants/Theme';
 import { BasicLayout } from 'layouts';
 import styled from 'styled-components';
 import DownArrow from 'assets/svg/DownArrow.svg';
-import { ExchangingHistoryItem } from 'components/Business';
+import { ExchangeHistoryItem } from 'components/Business';
+import { useHistoryStore } from 'store';
+import React from 'react';
 
 const Container = styled(FlexBox)`
   width: 634px;
@@ -32,6 +34,7 @@ const HistoryTopWrapper = styled(FlexBox)`
 
 const HistoryLeftWrapper = styled(FlexBox)`
   align-items: center;
+  cursor: pointer;
 `;
 
 const DownArrowImage = styled.img`
@@ -40,28 +43,31 @@ const DownArrowImage = styled.img`
 `;
 
 export function ExchangingHistory() {
+  const { histories } = useHistoryStore();
+  const [isDescending, setIsDescending] = React.useState(true);
+
   return (
     <BasicLayout>
       <Container column>
         <Title bold>환전 내역</Title>
         <HistoryListWrapper column>
           <HistoryTopWrapper>
-            <HistoryLeftWrapper>
+            <HistoryLeftWrapper onClick={() => setIsDescending((prev) => !prev)}>
               <Text caption bold>
-                환전 내역
+                환전 시간
               </Text>
               <DownArrowImage src={DownArrow} />
             </HistoryLeftWrapper>
             <Text caption>환전금액</Text>
           </HistoryTopWrapper>
-          {[0, 1].map((_, index) => (
-            <ExchangingHistoryItem
-              key={index}
-              date="2023-03-12, AM 10:50"
-              targetType="Ethereum"
-              targetAmount="1,302.44"
-              resultType="Solana"
-              resultAmount="1,302.44"
+          {(isDescending ? histories.slice().reverse() : histories).map((item) => (
+            <ExchangeHistoryItem
+              key={item.date.toString()}
+              date={item.date}
+              targetType={item.targetType}
+              targetAmount={item.targetAmount}
+              resultType={item.resultType}
+              resultAmount={item.resultAmount}
             />
           ))}
         </HistoryListWrapper>

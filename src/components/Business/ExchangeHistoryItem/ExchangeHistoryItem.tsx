@@ -3,7 +3,7 @@ import { SHADE } from 'constants/Theme';
 import styled from 'styled-components';
 import { TokenType } from 'types/Model';
 import RightChevron from 'assets/svg/RightChevron.svg';
-import { getTokenImageByType, getTokenUnitByType } from 'utils';
+import { addThousandSeparator, getTokenImageByType, getTokenUnitByType, historyItemDateFormat } from 'utils';
 
 const Container = styled(FlexBox)`
   width: 100%;
@@ -27,32 +27,32 @@ const TokenImage = styled.img`
 `;
 
 type Props = {
-  date: string;
+  date: Date;
   targetType: TokenType;
-  targetAmount: string;
+  targetAmount: number;
   resultType: TokenType;
-  resultAmount: string;
+  resultAmount: number;
 };
 
-export function ExchangingHistoryItem(props: Props) {
+export function ExchangeHistoryItem(props: Props) {
   const { date, targetType, targetAmount, resultType, resultAmount } = props;
 
   return (
     <Container>
       <TextWrapper>
-        <Text caption>{date}</Text>
+        <Text caption>{historyItemDateFormat(date)}</Text>
       </TextWrapper>
       <FlexBox center>
         <TokenImage src={getTokenImageByType(targetType)} />
         <Text body2 semibold>
-          {`${targetAmount} ${getTokenUnitByType(targetType)}`}
+          {`${addThousandSeparator(targetAmount)} ${getTokenUnitByType(targetType)}`}
         </Text>
       </FlexBox>
       <img src={RightChevron} />
       <FlexBox center>
         <TokenImage src={getTokenImageByType(resultType)} />
         <Text body2 semibold>
-          {`${resultAmount} ${getTokenUnitByType(resultType)}`}
+          {`${addThousandSeparator(resultAmount)} ${getTokenUnitByType(resultType)}`}
         </Text>
       </FlexBox>
     </Container>
